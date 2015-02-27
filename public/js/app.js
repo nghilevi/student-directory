@@ -98,7 +98,8 @@ app.directive('imageFallback', function() {
 app.controller('EmployeesCtrl', ['$scope', 'EmployeeService',
 	function($scope, service) {
 		service.query(function(data, headers) {
-		$scope.employees = data;
+			console.log(data);
+			$scope.employees = data;
 		}, _handleError);
 	}
 ]);
@@ -168,10 +169,10 @@ function($scope, $routeParams, employee, team, $q, config,$route) {
 
 app.controller('TeamsCtrl', ['$scope', 'TeamService',
 	function($scope, service) {
-	service.query(function (data) {
-		$scope.teams = data;
-	}, _handleError);
-}
+		service.query(function (data) {
+			$scope.teams = data;
+		}, _handleError);
+	}
 ]);
 
 app.controller('TeamCtrl', ['$scope', '$routeParams', 'TeamService',

@@ -59,3 +59,7 @@ ul.address-lines div.address-edit, .margin-bottom-space {
 ul.address-lines .in-line-input {
 	margin-bottom: 5px;
 }
+
+.nav-pills > li > a, .breadcrumb, .btn, .panel, .container .jumbotron{
+	border-radius: 0px;
+}

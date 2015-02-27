@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "populate": "node ./bin/populate_db"
+    "populate": "nodemon ./bin/populate_db"
   },
   "author": "Nghi",
   "license": "ISC",
