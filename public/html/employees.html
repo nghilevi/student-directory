@@ -1,0 +1,77 @@
+<html lang="en" ng-app="app">
+<body>
+
+	<div ng-controller="main">
+		<input type="text" ng-model="firstName" placeholder="first name">
+		<input type="text" ng-model="lastName" placeholder="first name">
+		<button ng-disabled="!(firstName.length && lastName.length)" ng-click="add()">Add</button>
+		<table>
+			<tr ng-repeat="p in employees">
+				<td>{{p.id}}</td>
+				<td><span>{{p.first}} {{p.last}}</span></td>
+				<td><button ng-click="$parent.remove(p)">Remove</button></td>
+			</tr>
+		</table>
+	</div>
+
+	<div ng-controller="logger">
+		<pre>
+			<p ng-repeat="e in events track by $index">{{$index}} - {{e}}</p>
+		</pre>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+	<script src="//code.angularjs.org/1.2.16/angular-resource.js"></script>
+
+	<script>
+		var app = angular.module('app', ['ngResource']);
+		
+		app.factory('EmployeeService', ['$resource', function($resource) {
+			return $resource('/employees/:employeeId', {}, {
+				get: {
+					isArray: true
+				},
+				delete: {
+					isArray: true,
+					method: 'DELETE'
+				},
+				post: {
+					method: 'POST'
+				}
+			});
+		}]);
+		
+		app.controller('main', ['$scope', 'EmployeeService', '$rootScope',function($scope, EmployeeService, $rootScope) {
+			EmployeeService.get(function (data) {
+				$scope.employees = data;
+			});
+
+			$scope.add = function () {
+				EmployeeService.post({
+					first: $scope.firstName,
+					last: $scope.lastName
+				}, function (data) {
+					$scope.employees.push(data);
+				});
+			};
+
+			$scope.remove = function(employee) {
+				EmployeeService.delete({
+					employeeId: employee.id
+				}, function (data) {
+					$scope.employees = data;
+				});
+			}
+			
+		}]);
+
+		app.controller('logger', ['$scope', '$rootScope',function ($scope, $rootScope){
+			$scope.events = [];
+			$rootScope.$on('log', function (event, data) {
+				$scope.events.push(data.trim());
+			});
+		}]);
+
+	</script>
+</body>
+</html>
