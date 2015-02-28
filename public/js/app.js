@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('app', ['ngRoute', 'ngResource']).constant('config', {
-	states: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+	nationalities: ['American','Finnish','Japanese','German','Vietnamese','Chinese']
 });
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -29,6 +29,7 @@ app.config(['$routeProvider', function($routeProvider) {
 	});
 }]);
 
+//SERVICES
 app.factory('EmployeeService', ['$resource', function($resource) {
 	return $resource('/employees/:employeeId', {}, {
 		update: {
@@ -41,11 +42,12 @@ app.factory('TeamService', ['$resource', function($resource) {
 	return $resource('/teams/:teamId');
 }]);
 
+//DIRECTIVES
 app.directive('imageFallback', function() {
 	return {
 		link: function(scope, elem, attrs) {
 			elem.bind('error', function() {
-			angular.element(this).attr('src', attrs.imageFallback);
+				angular.element(this).attr('src', attrs.imageFallback);
 			});
 		}
 	};
@@ -95,77 +97,92 @@ app.directive('imageFallback', function() {
 	return exports;
 });
 
+//Directive to help navigation bar active on click
+app.directive('bsNavbar', ['$location', function ($location) {
+  return {
+    restrict: 'A',
+    link: function postLink(scope, element) {
+      scope.$watch(function () {
+        return $location.path();
+      }, function (path) {
+        angular.forEach(element.children(), (function (li) {
+          var $li = angular.element(li),
+            regex = new RegExp('^' + $li.attr('data-match-route') + '$', 'i'),
+            isActive = regex.test(path);
+          $li.toggleClass('active', isActive);
+        }));
+      });
+    }
+  };
+}]);
+
+//CONTROLLERS
 app.controller('EmployeesCtrl', ['$scope', 'EmployeeService',
 	function($scope, service) {
 		service.query(function(data, headers) {
-			console.log(data);
+			//console.log(data);
 			$scope.employees = data;
 		}, _handleError);
 	}
 ]);
 
 app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'TeamService', '$q', 'config', '$route',
-function($scope, $routeParams, employee, team, $q, config,$route) {
-	$scope.address = {};
-	function getTeam (teams, teamId) {
-		for (var i = 0, l = teams.length; i < l; ++i) {
-			var t = teams[i];
-			if (t._id === teamId) {
-				return t;
+	function($scope, $routeParams, employee, team, $q, config,$route) {
+		$scope.address = {};
+		function getTeam (teams, teamId) {
+			for (var i = 0, l = teams.length; i < l; ++i) {
+				var t = teams[i];
+				if (t._id === teamId) {
+					return t;
+				}
 			}
 		}
-	}
 
-	$q.all([
-	employee.get({
-		employeeId: $routeParams.employeeId
-	}).$promise, team.query().$promise
-	]).then(function(values) {
-		$scope.teams = values[1];
-		$scope.employee = values[0];
-		$scope.employee.team = getTeam($scope.teams,
-		$scope.employee.team._id);
-	}).catch(_handleError);
+		$q.all([
+		employee.get({
+			employeeId: $routeParams.employeeId
+		}).$promise, team.query().$promise
+		]).then(function(values) {
+			$scope.teams = values[1];
+			$scope.employee = values[0];
+			$scope.employee.team = getTeam($scope.teams,$scope.employee.team._id);
+		}).catch(_handleError);
 
-	$scope.editing = false;
-	// To prevent multiple references to the same array, give us a new copy of it.
-	$scope.states = config.states.slice(0);
-	$scope.edit = function() {
-		$scope.editing = !$scope.editing;
-	};
+		$scope.editing = false;
+		// To prevent multiple references to the same array, give us a new copy of it.
+		$scope.nationalities = config.nationalities.slice(0);
+		$scope.edit = function() {
+			$scope.editing = !$scope.editing;
+		};
 
-	$scope.save = function() {
-		// To prevent empty lines in the database and keep the UI clean
-		// remove any blank lines
-		var lines = $scope.employee.address.lines;
-		if (lines.length) {
-			lines = lines.filter(function (value) {
-				return value;
+		$scope.save = function() {
+			//BUGGY AREA!
+			// To prevent empty lines in the database and keep the UI clean
+			// remove any blank lines
+			/*var nationality = $scope.employee.nationality;
+			if (nationality.length) {
+				nationality = nationality.filter(function (value) {
+					return value;
+				});
+			}
+
+			$scope.employee.nationality = nationality;*/
+
+			employee.update({
+				employeeId: $routeParams.employeeId
+			}, $scope.employee, function() {
+				$scope.editing = !$scope.editing;
+				console.log('Done saving!');
 			});
+			
+		};
+
+		$scope.cancel = function () {
+			$route.reload();
 		}
 
-		$scope.employee.address.lines = lines;
-		employee.update({
-			employeeId: $routeParams.employeeId
-		}, $scope.employee, function() {
-			$scope.editing = !$scope.editing;
-		});
-	};
-
-	$scope.cancel = function () {
-		$route.reload();
 	}
-
-	$scope.address.addLine = function (index) {
-		var lines = $scope.employee.address.lines;
-		lines.splice(index + 1, 0, '');
-	}
-
-	$scope.address.removeLine = function (index) {
-		var lines = $scope.employee.address.lines;
-		lines.splice(index, 1);
-	}
-}]);
+]);
 
 app.controller('TeamsCtrl', ['$scope', 'TeamService',
 	function($scope, service) {

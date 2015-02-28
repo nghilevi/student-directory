@@ -1,12 +1,13 @@
-<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="employee in employees">
+
+<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="employee in employees  | filter:searchText">
 	<div class="panel panel-default employee-list-item">
 		<div class="panel-body">
 			<span class="icon-container">
-				<i class="fa fa-3x fa-user"></i>
+			<img ng-src="{{employee.image}}" image-fallback="images/user.png" class="student-avatar-small">
 			</span>
 			<span class="h4">{{employee.name.last}}, {{employee.name.first}}</span>
 			<a href="#employees/{{employee.id}}" class="btn btn-sm btn-info">
-				<i class="fa fa-eye"></i> View
+				<i class="fa fa-eye"></i> Details
 			</a>
 		</div>
 	</div>

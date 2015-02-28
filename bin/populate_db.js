@@ -14,12 +14,8 @@ var data = {
 				last: 'Ihrig'
 			},
 			image: 'images/employees/1000003.png',
-			address: {
-				lines: ['11 Wall Street'],
-				city: 'New York',
-				state: 'NY',
-				zip: 10118
-			}
+			address: 'Siikajoentie 13 91980 LUMIJOKI',
+			nationality: 'Finnish'
 		},
 		{
 			id: '1000021',
@@ -27,12 +23,8 @@ var data = {
 				first: 'Adam',
 				last: 'Bretz'
 			},
-			address: {
-				lines: ['46 18th St', 'St. 210'],
-				city: 'Pittsburgh',
-				state: 'PA',
-				zip: 15222
-			}
+			address: 'Norra Larsmovägen 30 70210 KUOPIO',
+			nationality: 'Japanese'
 		},
 		{
 			id: '1000022',
@@ -40,12 +32,8 @@ var data = {
 				first: 'Matt',
 				last: 'Liegey'
 			},
-			address: {
-				lines: ['2 S Market Square', '(Market Square)'],
-				city: 'Pittsburgh',
-				state: 'PA',
-				zip: 15222
-			}
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Germany'
 		},
 		{
 			id: '1000025',
@@ -54,12 +42,8 @@ var data = {
 				last: 'Smolenchuk'
 			},
 			image: 'images/employees/1000025.png' /* invalid image */,
-			address: {
-				lines: ['3803 Forbes Ave'],
-				city: 'Pittsburgh',
-				state: 'PA',
-				zip: 15213
-			}
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Germany'
 		},
 		{
 			id: '1000030',
@@ -67,12 +51,8 @@ var data = {
 				first: 'Sarah',
 				last: 'Gay'
 			},
-			address: {
-				lines: ['8651 University Blvd'],
-				city: 'Pittsburgh',
-				state: 'PA',
-				zip: 15108
-			}
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Germany'
 		},
 		{
 			id: '1000031',
@@ -80,20 +60,22 @@ var data = {
 				first: 'Dave',
 				last: 'Beshero'
 			},
-			address: {
-				lines: ['1539 Washington Rd'],
-				city: 'Mt Lebanon',
-				state: 'PA',
-				zip: 15228
-			}
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Germany'
 		}
 	],
 	teams: [
 		{
-			name: 'Software and Services Group'
+			name: 'Finance'
 		},
 		{
-			name: 'Project Development'
+			name: 'Business Information Technology'
+		},
+		{
+			name: 'Graphic Design'
+		},
+		{
+			name: 'Computer Science'
 		}
 	]
 };
@@ -133,11 +115,11 @@ var deleteTeams = function(callback) {
 
 var addTeams = function(callback) {
 	console.info('Adding teams');
-	Team.create(data.teams, function (error, team1) {
+	Team.create(data.teams, function (error, team) {
 		if (error) {
 			console.error('Error: ' + error);
 		} else {
-			data.team_id = team1._id;
+			data.team_id = team._id;
 		}
 		console.info('Done adding teams');
 		callback();
@@ -146,8 +128,7 @@ var addTeams = function(callback) {
 
 var updateEmployeeTeams = function (callback) {
 	console.info('Updating employee teams');
-	var team = data.teams[0];
-	// Set everyone to be on the same team to start
+	var team = data.teams[1];// Set everyone to be on the same team 1 to start
 	Employee.update({}, 
 		{
 			team: data.team_id
@@ -163,7 +144,9 @@ var updateEmployeeTeams = function (callback) {
 	);
 };
 
-async.series(
+//http://stackoverflow.com/questions/15969082/node-js-async-series-is-that-how-it-is-supposed-to-work
+//http://www.sebastianseilund.com/nodejs-async-in-practice
+async.series( 
 	[
 		deleteEmployees,
 		deleteTeams,

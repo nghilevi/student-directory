@@ -26,18 +26,12 @@ var EmployeeSchema = new Schema({
 		default: 'images/user.png'
 	},
 	address: {
-		lines: {
-			type: [String]
-		},
-		city: {
-			type: String
-		},
-		state: {
-			type: String
-		},
-		zip: {
-			type: Number
-		}
+		type: String,
+		required: true
+	},
+	nationality: {
+		type: String,
+		required: true
 	}
 });
 

@@ -17,7 +17,7 @@ router.get('/employees', function(req, res, next) {
 router.get('/employees/:employeeId', function(req, res, next) {
 	Employee.findOne({
 		id: req.params.employeeId
-	}).populate('team').exec(function (error, results) {
+	}).populate('team').exec(function (error, results) { //WTF populate
 		if (error) {
 			return next(error);
 		}
@@ -38,7 +38,7 @@ router.put('/employees/:employeeId', function (req, res, next) {
 	req.body.team = req.body.team._id;
 	Employee.update({
 		id: req.params.employeeId
-	}, req.body, function (err, numberAffected, response) {
+	}, req.body, function (err, numberAffected, response) { //WTF res.body
 		if (err) {
 			return next(err);
 		}

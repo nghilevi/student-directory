@@ -26,16 +26,13 @@ ul.nav.nav-pills {
 .employee-avatar {
 	height: 200px;
 	width: 200px;
-	border-radius: 6px;
 }
 span.icon-container {
 	display: inline-block;
 	text-align: center;
 	width: 48px;
 	height: 48px;
-	border: 1px solid #3498db;
 	margin-right: 15px;
-	border-radius: 4px;
 }
 
 div.button-bar {
@@ -60,6 +57,23 @@ ul.address-lines .in-line-input {
 	margin-bottom: 5px;
 }
 
+/*Square corner*/
 .nav-pills > li > a, .breadcrumb, .btn, .panel, .container .jumbotron{
 	border-radius: 0px;
+}
+
+/*Search box*/
+.input-group .form-control{
+	margin: 3px;
+}
+
+.form-control{
+	height: 35px;
+	padding: 6px 15px;
+}
+
+/*Avatar*/
+.student-avatar-small{
+	height:48px;
+	widows: 48px;
 }
