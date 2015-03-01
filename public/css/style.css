@@ -3,8 +3,8 @@ body {
 	background-repeat: repeat;
 	min-width: 320px;
 }
+
 ul.nav.nav-pills {
-	margin: 10px 0;
 	background-color: #fff;
 }
 .employee-list-item .panel-body {
@@ -57,14 +57,43 @@ ul.address-lines .in-line-input {
 	margin-bottom: 5px;
 }
 
+/* Other styles */
+.home{
+	background: url('/images/university.jpg');
+	background-size: cover;
+	width: 100%;
+	min-height: 600px;
+}
+.panel:hover{
+	opacity: 0.9;
+}
+.big-panel{
+	opacity: 0.9;
+}
+/* Override bootstrap style*/
 /*Square corner*/
 .nav-pills > li > a, .breadcrumb, .btn, .panel, .container .jumbotron{
 	border-radius: 0px;
 }
 
+.panel{
+	margin-bottom: 0;
+}
+
+.col-xs-12, .col-sm-6, .col-lg-4{
+	padding: 0px;
+}
 /*Search box*/
-.input-group .form-control{
-	margin: 3px;
+.template-search{
+	margin: 5px 0;
+}
+
+.input-group {
+    opacity: 0.9;
+}
+
+.form-control{
+	border: none;
 }
 
 .form-control{

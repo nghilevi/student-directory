@@ -30,7 +30,7 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 //SERVICES
-app.factory('EmployeeService', ['$resource', function($resource) {
+app.factory('EmployeeService', ['$resource', function($resource) { //FTW
 	return $resource('/employees/:employeeId', {}, {
 		update: {
 			method: 'PUT'
@@ -46,12 +46,14 @@ app.factory('TeamService', ['$resource', function($resource) {
 app.directive('imageFallback', function() {
 	return {
 		link: function(scope, elem, attrs) {
+			//https://docs.angularjs.org/api/ng/function/angular.element
 			elem.bind('error', function() {
+				//this == HTMLImageElement or <img>
 				angular.element(this).attr('src', attrs.imageFallback);
 			});
 		}
 	};
-}).directive('editInLine', function ($compile) {
+}).directive('editInLine', function ($compile) { //FTW
 	var exports = {};
 	function link (scope, element, attrs) {
 		var template = '<div class="in-line-container">';
@@ -117,8 +119,15 @@ app.directive('bsNavbar', ['$location', function ($location) {
 }]);
 
 //CONTROLLERS
-app.controller('EmployeesCtrl', ['$scope', 'EmployeeService',
-	function($scope, service) {
+app.controller('EmployeesCtrl', ['$scope','$location','EmployeeService',
+	function($scope,$location,service) {
+		$scope.template={
+			name: 'search.html',
+        	url: '../search.html'
+        }
+        $scope.go = function (employeeId) {
+		  $location.path('/employees/'+employeeId);
+		};
 		service.query(function(data, headers) {
 			//console.log(data);
 			$scope.employees = data;
@@ -156,17 +165,6 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 		};
 
 		$scope.save = function() {
-			//BUGGY AREA!
-			// To prevent empty lines in the database and keep the UI clean
-			// remove any blank lines
-			/*var nationality = $scope.employee.nationality;
-			if (nationality.length) {
-				nationality = nationality.filter(function (value) {
-					return value;
-				});
-			}
-
-			$scope.employee.nationality = nationality;*/
 
 			employee.update({
 				employeeId: $routeParams.employeeId
@@ -184,16 +182,24 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 	}
 ]);
 
-app.controller('TeamsCtrl', ['$scope', 'TeamService',
-	function($scope, service) {
+//MULTIPLE
+app.controller('TeamsCtrl', ['$scope','$location', 'TeamService',
+	function($scope, $location,service) {
+		$scope.go = function (teamId) {
+		  $location.path('/teams/'+teamId);
+		};
 		service.query(function (data) {
 			$scope.teams = data;
 		}, _handleError);
 	}
 ]);
 
-app.controller('TeamCtrl', ['$scope', '$routeParams', 'TeamService',
-	function($scope, $routeParams, service) {
+//SINGLE
+app.controller('TeamCtrl', ['$scope','$location', '$routeParams', 'TeamService',
+	function($scope,$location, $routeParams, service) {
+		$scope.go = function (employeeId) {
+		  $location.path('/employees/'+employeeId);
+		};
 		service.get({
 			teamId: $routeParams.teamId
 		}, function(data, headers) {
