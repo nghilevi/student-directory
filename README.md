@@ -2,7 +2,7 @@ Student-Directory
 ===========================
 Description 
 -------
-A simple yet efficient web app for managing student buit using MEAN stack
+A simple yet efficient web app project for managing student of a fictional university developed by using MEAN stack. This can be served for learning purpose or prototyping a new similar project.
 
 Demo
 -------
