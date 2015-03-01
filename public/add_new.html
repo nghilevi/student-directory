@@ -9,7 +9,7 @@
 		
 		<div class="button-bar">
 			<button class="btn btn-warning" ng-click="edit()" ng-hide="editing">Modify</button>
-			<button class="btn btn-success" ng-click="save()" ng-show="editing">Update</button>
+			<button class="btn btn-success" ng-click="save()" ng-show="editing">Add</button>
 			<button class="btn btn-danger" ng-click="cancel()" ng-show="editing">Cancel</button>
 		</div>
 		
@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-group">
 				<label>Department:</label>
-				<edit-in-line value="" editing="editing" edit-list="teams" edit-option="t.name for t in teams" edit-type="select" display-value="employee.team.name" />
+				<edit-in-line value="" editing="editing" edit-list="departments" edit-option="t for t in departments" edit-type="select" display-value="employee.team.name" />
 			</div>
 		</div>
 

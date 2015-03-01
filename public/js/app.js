@@ -1,6 +1,7 @@
 'use strict';
 var app = angular.module('app', ['ngRoute', 'ngResource']).constant('config', {
-	nationalities: ['American','Finnish','Japanese','German','Vietnamese','Chinese']
+	nationalities: ['American','Finnish','Japanese','German','Vietnamese','Chinese'],
+	departments:['Finance','Business Information Technology','Graphic Design','Computer Science']
 });
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -188,7 +189,6 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 
 app.controller('AddNewCtrl', ['$scope','EmployeeService', 'TeamService', '$q', 'config', '$route',
 	function($scope, employee, team, $q, config,$route) {
-
 		//default info
 		$scope.employee={
 			id: "####",
@@ -200,9 +200,9 @@ app.controller('AddNewCtrl', ['$scope','EmployeeService', 'TeamService', '$q', '
 			nationality: ""
 		};
 
-		$scope.editing = false;
-		// To prevent multiple references to the same array, give us a new copy of it.
+		$scope.editing = false; 
 		$scope.nationalities = config.nationalities.slice(0);
+		$scope.departments= config.departments.slice(0);
 		$scope.edit = function() {
 			$scope.editing = !$scope.editing;
 		};

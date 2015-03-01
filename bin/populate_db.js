@@ -36,7 +36,7 @@ var data = {
 			},
 			image: 'images/employees/003.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
-			nationality: 'Germany'
+			nationality: 'German'
 		},
 		{
 			id: '004',
@@ -46,7 +46,7 @@ var data = {
 			},
 			image: 'images/employees/004.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
-			nationality: 'Germany'
+			nationality: 'German'
 		},
 		{
 			id: '005',
@@ -56,7 +56,7 @@ var data = {
 			},
 			image: 'images/employees/005.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
-			nationality: 'Germany'
+			nationality: 'German'
 		},
 		{
 			id: '006',
