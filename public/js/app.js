@@ -24,6 +24,10 @@ app.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'team.html',
 		controller: 'TeamCtrl'
 	})
+	.when('/add_new', {
+		templateUrl: 'add_new.html',
+		controller: 'AddNewCtrl'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -168,6 +172,45 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 
 			employee.update({
 				employeeId: $routeParams.employeeId
+			}, $scope.employee, function() {
+				$scope.editing = !$scope.editing;
+				console.log('Done saving!');
+			});
+			
+		};
+
+		$scope.cancel = function () {
+			$route.reload();
+		}
+
+	}
+]);
+
+app.controller('AddNewCtrl', ['$scope','EmployeeService', 'TeamService', '$q', 'config', '$route',
+	function($scope, employee, team, $q, config,$route) {
+
+		//default info
+		$scope.employee={
+			id: "####",
+			name: {
+				first:"First Name",
+				last:"Last Name"
+			},
+			address: "",
+			nationality: ""
+		};
+
+		$scope.editing = false;
+		// To prevent multiple references to the same array, give us a new copy of it.
+		$scope.nationalities = config.nationalities.slice(0);
+		$scope.edit = function() {
+			$scope.editing = !$scope.editing;
+		};
+
+		$scope.save = function() {
+
+			employee.update({
+				employeeId: $scope.employee.id
 			}, $scope.employee, function() {
 				$scope.editing = !$scope.editing;
 				console.log('Done saving!');
