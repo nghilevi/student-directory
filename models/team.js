@@ -13,14 +13,14 @@ var TeamSchema = new Schema({
 	}
 });
 
-function _attachMembers (Employee, result, callback) {
-	Employee.find({
+function _attachMembers (student, result, callback) {
+	student.find({
 		team: result._id
-	}, function (error, employees) {
+	}, function (error, students) {
 		if (error) {
 			return callback(error);
 		}
-		result.members = employees;
+		result.members = students;
 		callback(null, result);
 	});
 }
@@ -28,10 +28,10 @@ function _attachMembers (Employee, result, callback) {
 // listen for find and findOne
 TeamSchema.plugin(postFind, {
 	find: function (result, callback) {
-			var Employee = mongoose.model('Employee');
+			var student = mongoose.model('student');
 
 			async.each(result, function (item, callback) {
-				_attachMembers(Employee, item, callback);
+				_attachMembers(student, item, callback);
 			}, function (error) {
 				if (error) {
 					return callback(error);
@@ -41,8 +41,8 @@ TeamSchema.plugin(postFind, {
 			);
 	},
 	findOne: function (result, callback) {
-		var Employee = mongoose.model('Employee');
-		_attachMembers(Employee, result, callback);
+		var student = mongoose.model('student');
+		_attachMembers(student, result, callback);
 	}
 });
 

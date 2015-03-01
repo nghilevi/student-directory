@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var EmployeeSchema = new Schema({
+var studentSchema = new Schema({
 	id: {
 		type: String,
 		required: true,
@@ -35,4 +35,4 @@ var EmployeeSchema = new Schema({
 	}
 });
 
-module.exports = mongoose.model('Employee', EmployeeSchema);
+module.exports = mongoose.model('student', studentSchema);

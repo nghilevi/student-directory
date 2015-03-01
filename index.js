@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 //establish a database connection, 
 require('./lib/connection');
 //import the application's routes
-var employees = require('./routes/employees');
+var students = require('./routes/students');
 var teams = require('./routes/teams');
 
 //initialize the app variable
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // application routes
-app.use(employees);
+app.use(students);
 app.use(teams);
 
 // catch 404 and forward to error handler

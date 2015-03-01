@@ -1,5 +1,5 @@
 <ul class="breadcrumb">
-	<li><a href="#employees">New Student</a></li>
+	<li><a href="#students">New Student</a></li>
 	<li class="active">Last Name, Last Name</li>
 </ul>
 
@@ -14,37 +14,37 @@
 		</div>
 		
 		<div class="col-xs-12 col-md-4 text-center">
-			<h3 class="margin-top-reset">{{employee.name.first}}, {{employee.name.last}}</h3>
-			<img ng-src="{{employee.image}}" image-fallback="images/user.png" class="employee-avatar">
+			<h3 class="margin-top-reset">{{student.name.first}}, {{student.name.last}}</h3>
+			<img ng-src="{{student.image}}" image-fallback="images/user.png" class="student-avatar">
 		</div>
 
 		<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
 			<div class="form-group">
 				<label class="control-label">Student ID</label>
-				<edit-in-line value="employee.id" editing="editing" />
+				<edit-in-line value="student.id" editing="editing" />
 			</div>
 			<div class="form-group">
 				<label class="control-label">First Name:</label>
-				<edit-in-line value="employee.name.first" editing="editing" />
+				<edit-in-line value="student.name.first" editing="editing" />
 			</div>
 			<div class="form-group">
 				<label>Last Name:</label>
-				<edit-in-line value="employee.name.last" editing="editing" />
+				<edit-in-line value="student.name.last" editing="editing" />
 			</div>
 			<div class="form-group">
 				<label>Department:</label>
-				<edit-in-line value="" editing="editing" edit-list="departments" edit-option="t for t in departments" edit-type="select" display-value="employee.team.name" />
+				<edit-in-line value="" editing="editing" edit-list="departments" edit-option="t for t in departments" edit-type="select" display-value="student.team.name" />
 			</div>
 		</div>
 
 		<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
 			<div class="form-group">
 				<label>Address:</label>
-				<edit-in-line value="employee.address" editing="editing" />
+				<edit-in-line value="student.address" editing="editing" />
 			</div>
 			<div class="form-group">
 				<label>Nationality:</label>
-				<edit-in-line value="employee.nationality" editing="editing" edit-list="nationalities" edit-option='n for n in nationalities' edit-type="select" display-value="employee.nationality" />
+				<edit-in-line value="student.nationality" editing="editing" edit-list="nationalities" edit-option='n for n in nationalities' edit-type="select" display-value="student.nationality" />
 			</div>
 		</div>
 	</div> <!--END panel-body-->

@@ -9,13 +9,13 @@ app.config(['$routeProvider', function($routeProvider) {
 	.when('/', {
 		templateUrl: 'home.html'
 	})
-	.when('/employees', {
-		templateUrl: 'employees.html',
-		controller: 'EmployeesCtrl'
+	.when('/students', {
+		templateUrl: 'students.html',
+		controller: 'studentsCtrl'
 	})
-	.when('/employees/:employeeId', {
-		templateUrl: 'employee.html',
-		controller: 'EmployeeCtrl'
+	.when('/students/:studentId', {
+		templateUrl: 'student.html',
+		controller: 'studentCtrl'
 	})
 	.when('/teams', {
 		templateUrl: 'teams.html',
@@ -35,8 +35,8 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 //SERVICES
-app.factory('EmployeeService', ['$resource', function($resource) { //FTW
-	return $resource('/employees/:employeeId', {}, {
+app.factory('studentService', ['$resource', function($resource) { //FTW
+	return $resource('/students/:studentId', {}, {
 		update: {
 			method: 'PUT'
 		}
@@ -124,24 +124,24 @@ app.directive('bsNavbar', ['$location', function ($location) {
 }]);
 
 //CONTROLLERS
-app.controller('EmployeesCtrl', ['$scope','$location','EmployeeService',
+app.controller('studentsCtrl', ['$scope','$location','studentService',
 	function($scope,$location,service) {
 		$scope.template={
 			name: 'search.html',
         	url: '../search.html'
         }
-        $scope.go = function (employeeId) {
-		  $location.path('/employees/'+employeeId);
+        $scope.go = function (studentId) {
+		  $location.path('/students/'+studentId);
 		};
 		service.query(function(data, headers) {
 			//console.log(data);
-			$scope.employees = data;
+			$scope.students = data;
 		}, _handleError);
 	}
 ]);
 
-app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'TeamService', '$q', 'config', '$route',
-	function($scope, $routeParams, employee, team, $q, config,$route) {
+app.controller('studentCtrl', ['$scope', '$routeParams','studentService', 'TeamService', '$q', 'config', '$route',
+	function($scope, $routeParams, student, team, $q, config,$route) {
 		$scope.address = {};
 		function getTeam (teams, teamId) {
 			for (var i = 0, l = teams.length; i < l; ++i) {
@@ -153,13 +153,13 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 		}
 
 		$q.all([
-		employee.get({
-			employeeId: $routeParams.employeeId
+		student.get({
+			studentId: $routeParams.studentId
 		}).$promise, team.query().$promise
 		]).then(function(values) {
 			$scope.teams = values[1];
-			$scope.employee = values[0];
-			$scope.employee.team = getTeam($scope.teams,$scope.employee.team._id);
+			$scope.student = values[0];
+			$scope.student.team = getTeam($scope.teams,$scope.student.team._id);
 		}).catch(_handleError);
 
 		$scope.editing = false;
@@ -171,9 +171,9 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 
 		$scope.save = function() {
 
-			employee.update({
-				employeeId: $routeParams.employeeId
-			}, $scope.employee, function() {
+			student.update({
+				studentId: $routeParams.studentId
+			}, $scope.student, function() {
 				$scope.editing = !$scope.editing;
 				console.log('Done saving!');
 			});
@@ -187,10 +187,10 @@ app.controller('EmployeeCtrl', ['$scope', '$routeParams','EmployeeService', 'Tea
 	}
 ]);
 
-app.controller('AddNewCtrl', ['$scope','EmployeeService', 'TeamService', '$q', 'config', '$route',
-	function($scope, employee, team, $q, config,$route) {
+app.controller('AddNewCtrl', ['$scope','studentService', 'TeamService', '$q', 'config', '$route',
+	function($scope, student, team, $q, config,$route) {
 		//default info
-		$scope.employee={
+		$scope.student={
 			id: "####",
 			name: {
 				first:"First Name",
@@ -209,9 +209,9 @@ app.controller('AddNewCtrl', ['$scope','EmployeeService', 'TeamService', '$q', '
 
 		$scope.save = function() {
 
-			employee.update({
-				employeeId: $scope.employee.id
-			}, $scope.employee, function() {
+			student.update({
+				studentId: $scope.student.id
+			}, $scope.student, function() {
 				$scope.editing = !$scope.editing;
 				console.log('Done saving!');
 			});
@@ -240,8 +240,8 @@ app.controller('TeamsCtrl', ['$scope','$location', 'TeamService',
 //SINGLE
 app.controller('TeamCtrl', ['$scope','$location', '$routeParams', 'TeamService',
 	function($scope,$location, $routeParams, service) {
-		$scope.go = function (employeeId) {
-		  $location.path('/employees/'+employeeId);
+		$scope.go = function (studentId) {
+		  $location.path('/students/'+studentId);
 		};
 		service.get({
 			teamId: $routeParams.teamId

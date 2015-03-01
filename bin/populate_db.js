@@ -1,132 +1,132 @@
 var async = require('async');
 var mongoose = require('mongoose');
 require(process.cwd() + '/lib/connection');
-var Employee = mongoose.model('Employee');
+var student = mongoose.model('student');
 var Team = mongoose.model('Team');
 
 idArr=['001','002','003','004','005','006','007','008','009','0010','0011','0012'];
 var data = {
-	employees: 
+	students: 
 	[
 		{
-			id: '001',
+			id: idArr[0],
 			name: {
 				first: 'Colin',
 				last: 'Ihrig'
 			},
-			image: 'images/employees/001.png',
+			image: 'images/students/001.png',
 			address: 'Siikajoentie 13 91980 LUMIJOKI',
 			nationality: 'Finnish'
 		},
 		{
-			id: '002',
+			id: idArr[1],
 			name: {
 				first: 'Elon',
 				last: 'Musk'
 			},
-			image: 'images/employees/002.png',
+			image: 'images/students/002.png',
 			address: 'Norra Larsmovägen 30 70210 KUOPIO',
 			nationality: 'Japanese'
 		},
 		{
-			id: '003',
+			id: idArr[2],
 			name: {
 				first: 'Matt',
 				last: 'Liegey'
 			},
-			image: 'images/employees/003.png',
+			image: 'images/students/003.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'German'
 		},
 		{
-			id: '004',
+			id: idArr[3],
 			name: {
 				first: 'Aleksey',
 				last: 'Smolenchuk'
 			},
-			image: 'images/employees/004.png',
+			image: 'images/students/004.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'German'
 		},
 		{
-			id: '005',
+			id: idArr[4],
 			name: {
 				first: 'Ada',
 				last: 'Lovelace'
 			},
-			image: 'images/employees/005.png',
+			image: 'images/students/005.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'German'
 		},
 		{
-			id: '006',
+			id: idArr[5],
 			name: {
 				first: 'Adam',
 				last: 'Sandler'
 			},
-			image: 'images/employees/006.png',
+			image: 'images/students/006.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'American'
 		},
 		{
-			id: '007',
+			id: idArr[6],
 			name: {
 				first: 'Tom',
 				last: 'Cruise'
 			},
-			image: 'images/employees/007.png',
+			image: 'images/students/007.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'American'
 		},
 		{
-			id: '008',
+			id: idArr[7],
 			name: {
 				first: 'Obama',
 				last: 'Barack'
 			},
-			image: 'images/employees/008.png',
+			image: 'images/students/008.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'American'
 		},
 		{
-			id: '009',
+			id: idArr[8],
 			name: {
 				first: 'Marissa',
 				last: 'Mayer'
 			},
-			image: 'images/employees/009.png',
+			image: 'images/students/009.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'American'
 		},
 		{
-			id: '010',
+			id: idArr[9],
 			name: {
 				first: 'Linus',
 				last: 'Torvalds'
 			},
-			image: 'images/employees/010.png',
+			image: 'images/students/010.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Finnish'
 		}
 		,
 		{
-			id: '011',
+			id: idArr[10],
 			name: {
 				first: 'Kent',
 				last: 'Beck'
 			},
-			image: 'images/employees/011.png',
+			image: 'images/students/011.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Finnish'
 		}
 		,
 		{
-			id: '012',
+			id: idArr[11],
 			name: {
 				first: 'Douglas',
 				last: 'Crockford'
 			},
-			image: 'images/employees/012.png',
+			image: 'images/students/012.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Finnish'
 		}
@@ -147,31 +147,31 @@ var data = {
 	]
 };
 
-var deleteEmployees = function(callback) {
-	console.info('Deleting employees');
-	Employee.remove({}, function(error, response) {
+var deletestudents = function(callback) {
+	console.info('Deleting students');
+	student.remove({}, function(error, response) {
 		if (error) {
-			console.error('Error deleting employees: ' + error);
+			console.error('Error deleting students: ' + error);
 		}
-		console.info('Done deleting employees');
+		console.info('Done deleting students');
 		callback();
 	});
 };
 
-var addEmployees = function(callback) {
-	console.info('Adding employees');
-	Employee.create(data.employees, function (error) {
+var addstudents = function(callback) {
+	console.info('Adding students');
+	student.create(data.students, function (error) {
 		if (error) {
 			console.error('Error: ' + error);
 		}
-		console.info('Done adding employees');
+		console.info('Done adding students');
 		callback();
 	});
 };
 
 var deleteTeams = function(callback) {
 	console.info('Deleting teams');
-	Team.remove({}, function(error, response) {
+	student.remove({}, function(error, response) {
 		if (error) {
 			console.error('Error deleting teams: ' + error);
 		}
@@ -182,7 +182,7 @@ var deleteTeams = function(callback) {
 
 var addTeams = function(callback) {
 	console.info('Adding teams');
-	Team.create(data.teams, function (error, team) {
+	student.create(data.teams, function (error, team) {
 		if (error) {
 			console.error('Error: ' + error);
 		} else {
@@ -193,20 +193,20 @@ var addTeams = function(callback) {
 	});
 };
 
-var updateEmployeeTeams = function (callback) {
-	console.info('Updating employee teams');
+var updatestudentTeams = function (callback) {
+	console.info('Updating student teams');
 	var team = data.teams[0];
 	// Set everyone to be on the same team to start
-	Employee.update({}, 
+	student.update({}, 
 		{
 			team: data.team_id
 		}, {
 			multi: true
 		}, function (error, numberAffected, response) {
 			if (error) {
-				console.error('Error updating employe team: ' + error);
+				console.error('Error updating student team: ' + error);
 			}
-			console.info('Done updating employee teams');
+			console.info('Done updating student teams');
 			callback();
 		}
 	);
@@ -216,11 +216,11 @@ var updateEmployeeTeams = function (callback) {
 //http://www.sebastianseilund.com/nodejs-async-in-practice
 async.series( 
 	[
-		deleteEmployees,
+		deletestudents,
 		deleteTeams,
-		addEmployees,
+		addstudents,
 		addTeams,
-		updateEmployeeTeams
+		updatestudentTeams
 	], 
 	function(error, results) {
 		if (error) {

@@ -4,13 +4,13 @@
 	<li>Students</li>
 </ul>
 
-<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="employee in team.members">
-	<div class="panel panel-default employee-list-item" ng-click="go(employee.id)">
+<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="student in team.members">
+	<div class="panel panel-default student-list-item" ng-click="go(student.id)">
 		<div class="panel-body">
 			<span class="icon-container">
-				<img ng-src="{{employee.image}}" image-fallback="images/user.png" class="student-avatar-small">
+				<img ng-src="{{student.image}}" image-fallback="images/user.png" class="student-avatar-small">
 			</span>
-			<span>ID: {{employee.id}} <br/> {{employee.name.last}} {{employee.name.first}}, {{employee.nationality}}</span>
+			<span>ID: {{student.id}} <br/> {{student.name.last}} {{student.name.first}}, {{student.nationality}}</span>
 			</a>
 		</div>
 	</div>
