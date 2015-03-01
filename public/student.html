@@ -1,5 +1,5 @@
 <ul class="breadcrumb">
-	<li><a href="#students">students</a></li>
+	<li><a href="#students">Students</a></li>
 	<li class="active">{{student.name.last}}, {{student.name.first}}</li>
 </ul>
 
@@ -20,7 +20,7 @@
 
 		<div class="col-xs-12 col-sm-6 col-md-4 form-offset">
 			<div class="form-group">
-				<label class="control-label">student ID</label>
+				<label class="control-label">Student ID</label>
 				<div>#{{student.id}}</div>
 			</div>
 			<div class="form-group">
@@ -32,7 +32,7 @@
 				<edit-in-line value="student.name.last" editing="editing" />
 			</div>
 			<div class="form-group">
-				<label>Team:</label>
+				<label>Department:</label>
 				<edit-in-line value="student.team" editing="editing" edit-list="teams" edit-option="t.name for t in teams" edit-type="select" display-value="student.team.name" />
 			</div>
 		</div>
