@@ -4,64 +4,131 @@ require(process.cwd() + '/lib/connection');
 var Employee = mongoose.model('Employee');
 var Team = mongoose.model('Team');
 
+idArr=['001','002','003','004','005','006','007','008','009','0010','0011','0012'];
 var data = {
 	employees: 
 	[
 		{
-			id: '1000003',
+			id: '001',
 			name: {
 				first: 'Colin',
 				last: 'Ihrig'
 			},
-			image: 'images/employees/1000003.png',
+			image: 'images/employees/001.png',
 			address: 'Siikajoentie 13 91980 LUMIJOKI',
 			nationality: 'Finnish'
 		},
 		{
-			id: '1000021',
+			id: '002',
 			name: {
-				first: 'Adam',
-				last: 'Bretz'
+				first: 'Elon',
+				last: 'Musk'
 			},
+			image: 'images/employees/002.png',
 			address: 'Norra Larsmovägen 30 70210 KUOPIO',
 			nationality: 'Japanese'
 		},
 		{
-			id: '1000022',
+			id: '003',
 			name: {
 				first: 'Matt',
 				last: 'Liegey'
 			},
+			image: 'images/employees/003.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Germany'
 		},
 		{
-			id: '1000025',
+			id: '004',
 			name: {
 				first: 'Aleksey',
 				last: 'Smolenchuk'
 			},
-			image: 'images/employees/1000025.png' /* invalid image */,
+			image: 'images/employees/004.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Germany'
 		},
 		{
-			id: '1000030',
+			id: '005',
 			name: {
-				first: 'Sarah',
-				last: 'Gay'
+				first: 'Ada',
+				last: 'Lovelace'
 			},
+			image: 'images/employees/005.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
 			nationality: 'Germany'
 		},
 		{
-			id: '1000031',
+			id: '006',
 			name: {
-				first: 'Dave',
-				last: 'Beshero'
+				first: 'Adam',
+				last: 'Sandler'
 			},
+			image: 'images/employees/006.png',
 			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
-			nationality: 'Germany'
+			nationality: 'American'
+		},
+		{
+			id: '007',
+			name: {
+				first: 'Tom',
+				last: 'Cruise'
+			},
+			image: 'images/employees/007.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'American'
+		},
+		{
+			id: '008',
+			name: {
+				first: 'Obama',
+				last: 'Barack'
+			},
+			image: 'images/employees/008.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'American'
+		},
+		{
+			id: '009',
+			name: {
+				first: 'Marissa',
+				last: 'Mayer'
+			},
+			image: 'images/employees/009.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'American'
+		},
+		{
+			id: '010',
+			name: {
+				first: 'Linus',
+				last: 'Torvalds'
+			},
+			image: 'images/employees/010.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Finnish'
+		}
+		,
+		{
+			id: '011',
+			name: {
+				first: 'Kent',
+				last: 'Beck'
+			},
+			image: 'images/employees/011.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Finnish'
+		}
+		,
+		{
+			id: '012',
+			name: {
+				first: 'Douglas',
+				last: 'Crockford'
+			},
+			image: 'images/employees/012.png',
+			address: 'Osmajoentie 98 79100 LEPPÄVIRTA ',
+			nationality: 'Finnish'
 		}
 	],
 	teams: [
@@ -128,7 +195,8 @@ var addTeams = function(callback) {
 
 var updateEmployeeTeams = function (callback) {
 	console.info('Updating employee teams');
-	var team = data.teams[1];// Set everyone to be on the same team 1 to start
+	var team = data.teams[0];
+	// Set everyone to be on the same team to start
 	Employee.update({}, 
 		{
 			team: data.team_id
