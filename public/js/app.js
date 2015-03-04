@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('app', ['ngRoute', 'ngResource']).constant('config', {
+var app = angular.module('app', ['ngRoute', 'ngResource','ui.sortable']).constant('config', {
 	nationalities: ['American','Finnish','Japanese','German','Vietnamese','Chinese'],
 	departments:['Finance','Business Information Technology','Graphic Design','Computer Science']
 });
