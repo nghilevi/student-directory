@@ -1,7 +1,7 @@
 <div class="template-search" ng-include src="template.url"></div>
 
 <div ui-sortable>
-	<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="student in students  | filter:searchText" style="padding:5px 10px; cursor: move;">
+	<div class="col-xs-12 col-sm-6 col-lg-4" ng-repeat="student in students  | filter:searchText">
 			<div class="panel panel-default student-list-item" ng-click="go(student.id)">
 				<div class="panel-body">
 					<span class="icon-container">
